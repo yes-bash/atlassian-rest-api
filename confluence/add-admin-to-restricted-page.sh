@@ -1,6 +1,6 @@
 #!/bin/bash
 
-. .env
+. ../.env
 
 pageId="${1}"
 
