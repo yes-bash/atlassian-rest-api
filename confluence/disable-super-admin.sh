@@ -1,6 +1,6 @@
 #!/bin/bash
 
-. .env
+. ../.env
 
 curl -s --netrc-file ${netrcFileConfluence} -s --header 'Accept: */*' --header 'Content-Type: application/json' \
         -o /dev/null \
