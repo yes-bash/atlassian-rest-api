@@ -1,0 +1,7 @@
+.netrc*
+**/tmp/*
+
+# vim files
+*~
+*.swp
+*.swo
