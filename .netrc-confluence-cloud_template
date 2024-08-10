@@ -1,4 +1,4 @@
-# rename this file to .netrc-confluence-cloud
+# copy this file to .netrc-confluence-cloud
 machine YOUR-SITE-NAME.atlassian.net
 login ADMIN-API-USER@YOUR-COMPANY.TLD
 password YOUR-SECRET-PASSWORD
