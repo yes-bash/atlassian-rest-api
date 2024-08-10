@@ -39,7 +39,7 @@ do
 	# save old restrictions
 	curl -s --netrc-file ../${netrcFileConfluence} -s --header 'Accept: */*' --header 'Content-Type: application/json' \
 	        -b "confluence.asSuperAdmin=true" \
-	        --url "${url}/wiki/rest/api/content/${pageId}/restriction" > ${pageId}.restictions
+	        --url "${url}/wiki/rest/api/content/${pageId}/restriction" > ${tmp}/${pageId}.restictions
 	
 	# overwrite permissions with our admin user
 	curl -s --netrc-file ../${netrcFileConfluence} -s --header 'Accept: */*' --header 'Content-Type: application/json' \
@@ -53,9 +53,9 @@ do
 	        -o /dev/null \
 	        -X POST \
 	        --url "${url}/wiki/rest/api/content/${pageId}/restriction"  \
-	        --data-binary "@${pageId}.restictions" |jq
+	        --data-binary "@${tmp}/${pageId}.restictions" |jq
 	
-	#rm -f ${pageId}.restictions
+	rm -f ${tmp}/${pageId}.restictions
 done
 
 # disable superadmin
