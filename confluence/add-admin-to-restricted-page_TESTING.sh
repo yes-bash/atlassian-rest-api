@@ -36,6 +36,8 @@ bash enable-super-admin.sh
 
 ${input} |while read pageId
 do
+	unset userRead groupRead userUpdate groupUpdate
+
 	# get old restrictions
 	curl -s --netrc-file ../${netrcFileConfluence} -s --header 'Accept: */*' --header 'Content-Type: application/json' \
 	        -b "confluence.asSuperAdmin=true" \
@@ -46,28 +48,24 @@ do
 	do
 		userRead+="{\"id\":\"${line}\"},"
 	done < <( jq '.results[] | select (.operation == "read") |.restrictions.user.results[].accountId' ${tmp}/${pageId}.restictions -r; echo ${confluenceUserId} )
-	# echo "userRead: ${userRead%?}"
 
 	# get group read restrictions
 	while read line
 	do
 		groupRead+="{\"id\":\"${line}\"},"
 	done < <( jq '.results[] | select (.operation == "read") |.restrictions.group.results[].id' ${tmp}/${pageId}.restictions -r )
-	# echo "groupRead: ${groupRead%?}"
 
 	# get user update restrictions
 	while read line
 	do
 		userUpdate+="{\"id\":\"${line}\"},"
 	done < <( jq '.results[] | select (.operation == "update") |.restrictions.user.results[].accountId' ${tmp}/${pageId}.restictions -r; echo ${confluenceUserId} )
-	# echo "userUpdate: ${userUpdate%?}"
 
 	# get group update restrictions
 	while read line
 	do
 		groupUpdate+="{\"id\":\"${line}\"},"
 	done < <( jq '.results[] | select (.operation == "update") |.restrictions.group.results[].id' ${tmp}/${pageId}.restictions -r )
-	# echo "groupUpdate: ${groupUpdate%?}"
 	
 	# overwrite permissions with our admin user
 	curl -v -s --netrc-file ../${netrcFileConfluence} -s --header 'Accept: */*' --header 'Content-Type: application/json' \
