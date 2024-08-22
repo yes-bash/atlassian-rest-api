@@ -1,4 +1,6 @@
 #!/bin/bash
+# Author Benjamin Kotarlic (benjamin.kotarlic@gmail.com)
+
 # usage: 
 # 
 # if you want to change the restrictions of a single page

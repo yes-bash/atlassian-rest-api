@@ -1,4 +1,6 @@
 #!/bin/bash
+# Author Benjamin Kotarlic (benjamin.kotarlic@gmail.com)
+
 # usage: 
 # 
 # if you want to change the restrictions of a single page
@@ -52,8 +54,10 @@ do
 	# get group read restrictions
 	while read line
 	do
-		groupRead+="{\"id\":\"${line}\"},"
-	done < <( jq '.results[] | select (.operation == "read") |.restrictions.group.results[].id' ${tmp}/${pageId}.restictions -r )
+		id="$(echo "${line}" |jq '.id' -r)"
+		name="$(echo "${line}" |jq '.name' -r)"
+		groupRead+="{\"id\":\"${id}\",\"name\":\"${name}\"},"
+	done < <( jq '.results[] | select (.operation == "read") |.restrictions.group.results[] | { id: .id, name: .name }' ${tmp}/${pageId}.restictions -c )
 
 	# get user update restrictions
 	while read line
@@ -64,8 +68,10 @@ do
 	# get group update restrictions
 	while read line
 	do
-		groupUpdate+="{\"id\":\"${line}\"},"
-	done < <( jq '.results[] | select (.operation == "update") |.restrictions.group.results[].id' ${tmp}/${pageId}.restictions -r )
+		id="$(echo "${line}" |jq '.id' -r)"
+		name="$(echo "${line}" |jq '.name' -r)"
+		groupUpdate+="{\"id\":\"${id}\",\"name\":\"${name}\"},"
+	done < <( jq '.results[] | select (.operation == "update") |.restrictions.group.results[] | { id: .id, name: .name }' ${tmp}/${pageId}.restictions -c )
 	
 	# overwrite permissions with our admin user
 	curl -v -s --netrc-file ../${netrcFileConfluence} -s --header 'Accept: */*' --header 'Content-Type: application/json' \

@@ -1,9 +1,11 @@
 # atlassian-rest-api
+
+## setup
+
 make sure you have the following tools installed
 - curl
 - jq
 
-# setup
 rename .env_template to .env
 
 edit .env and replace
@@ -26,3 +28,11 @@ edit .netrc-jira-cloud and replace
 - ADMIN-API-USER@YOUR-COMPANY.TLD
 - YOUR-SECRET-PASSWORD
 
+## usage
+
+see subdirectories for each product
+
+
+## author
+
+Benjamin Kotarlic (benjamin.kotarlic@gmail.com)
