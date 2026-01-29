@@ -1,6 +1,6 @@
 #!/bin/bash
 # Author Benjamin Kotarlic (benjamin.kotarlic@gmail.com)
-
+cd "$(dirname $0)"
 . ../.env
 
 spaceKey="${1}"
