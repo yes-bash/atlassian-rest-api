@@ -29,7 +29,7 @@ do
 	result="$(getOptions ${startAt})"
 	isLast="$(echo "$result" | jq -r '.isLast')"
 	echo "${result}" |jq '.values[]'
-	[[ "${isLast}" == "true" ]] && break
+	[[ "${isLast}" != "false" ]] && break
 	startAt=$(( startAt + 100 ))
 	sleep 1
 done
