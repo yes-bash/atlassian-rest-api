@@ -12,7 +12,7 @@
 . ../.env
 
 function updateOption () {
-	curl -s --netrc-file ../${netrcFileJira} \
+	curl -s --netrc-file ${netrcFileJira} \
 		-X PUT \
 		--header 'Accept: application/json' \
 		--header 'Content-Type: application/json' \

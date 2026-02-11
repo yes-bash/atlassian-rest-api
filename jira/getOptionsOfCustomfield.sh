@@ -13,7 +13,7 @@
 . ../.env
 
 function getOptions () {
-	curl -s --netrc-file ../${netrcFileJira} \
+	curl -s --netrc-file ${netrcFileJira} \
 		--header 'Accept: application/json' \
 		--header 'Content-Type: application/json' \
 		--url "${url}/rest/api/3/field/customfield_${customfieldId}/context/${contextId}/option?startAt=${1}" 

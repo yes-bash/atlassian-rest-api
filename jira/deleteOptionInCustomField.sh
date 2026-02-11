@@ -1,8 +1,7 @@
 #!/bin/bash
 # Author Benjamin Kotarlic (benjamin.kotarlic@gmail.com)
 
-# usage: <this-script> <customfieldId> <contextId> "some option"
-
+# usage: <this-script> <customfieldId> <contextId> <option-id>
 # get contexts of customfield
 # https://<YOUR-SITE>.atlassian.net/rest/api/2/field/customfield_<customfieldId>/context
 
@@ -12,17 +11,16 @@
 
 . ../.env
 
-function addOption () {
+function deleteOption () {
 	curl -s --netrc-file ${netrcFileJira} \
-		-X POST \
+		-X DELETE \
 		--header 'Accept: application/json' \
 		--header 'Content-Type: application/json' \
-		--url "${url}/rest/api/3/field/customfield_${customfieldId}/context/${contextId}/option" \
-		--data "{ \"options\": [{\"disabled\": false, \"value\": \"${option}\" }]}"
+		--url "${url}/rest/api/3/field/customfield_${customfieldId}/context/${contextId}/option/${id}"
 }
 
 customfieldId="${1}"
 contextId="${2}"
-option="${3}"
+id="${3}"
 
-addOption
+deleteOption

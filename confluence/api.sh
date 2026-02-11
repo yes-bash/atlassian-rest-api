@@ -8,7 +8,7 @@
 
 . ../.env
 
-curl -s --netrc-file ../${netrcFileConfluence} \
+curl -s --netrc-file ${netrcFileConfluence} \
 	-X ${1} \
 	--header 'Accept: application/json' \
 	--header 'Content-Type: application/json' \

@@ -41,7 +41,7 @@ do
 	unset userRead groupRead userUpdate groupUpdate
 
 	# get old restrictions
-	curl -s --netrc-file ../${netrcFileConfluence} -s --header 'Accept: */*' --header 'Content-Type: application/json' \
+	curl -s --netrc-file ${netrcFileConfluence} -s --header 'Accept: */*' --header 'Content-Type: application/json' \
 	        -b "confluence.asSuperAdmin=true" \
 	        --url "${url}/wiki/rest/api/content/${pageId}/restriction" > ${tmp}/${pageId}.restictions
 
@@ -74,7 +74,7 @@ do
 	done < <( jq '.results[] | select (.operation == "update") |.restrictions.group.results[] | { id: .id, name: .name }' ${tmp}/${pageId}.restictions -c )
 	
 	# overwrite permissions with our admin user
-	curl -v -s --netrc-file ../${netrcFileConfluence} -s --header 'Accept: */*' --header 'Content-Type: application/json' \
+	curl -v -s --netrc-file ${netrcFileConfluence} -s --header 'Accept: */*' --header 'Content-Type: application/json' \
 	        --url "${url}/cgraphql?q=DirectRestrictionsMutation" \
 	        -X POST \
 	        -o /dev/null \

@@ -10,14 +10,14 @@
 
 
 function getUser () {
-	curl -s --netrc-file ../${netrcFileJira} \
+	curl -s --netrc-file ${netrcFileJira} \
 	--header 'Accept: application/json' \
 	--header 'Content-Type: application/json' \
 	--url "${url}/rest/api/2/user?accountId=${1}" 2>/dev/null |jq '{ displayName: .displayName, accountId: .accountId}' 
 }
 
 function getFilters () {
-	curl -s --netrc-file ../${netrcFileJira} \
+	curl -s --netrc-file ${netrcFileJira} \
 	--header 'Accept: application/json' \
 	--header 'Content-Type: application/json' \
 	--url "${url}/rest/api/2/filter/search?accountId=${oldOwner}&overrideSharePermissions=true" 2>/dev/null |jq '.values[] | { id: .id, name: .name }' -c 2>/dev/null
@@ -26,7 +26,7 @@ function getFilters () {
 function changeFilterOwner () {
 	local filterId="${1}"
 	local newOwner="${2}"
-	curl -s --netrc-file ../${netrcFileJira} \
+	curl -s --netrc-file ${netrcFileJira} \
 	-X PUT \
 	--url "${url}/rest/api/3/filter/${filterId}/owner" \
 	--header 'X-ExperimentalApi: opt-in' \
